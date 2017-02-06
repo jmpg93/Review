@@ -8,13 +8,13 @@
 
 import UIKit
 import ReactiveCocoa
+import ReactiveSwift
 
 class UsersViewController : UIViewController, UserView {
     var userPresenter: UsersPresenter!
     @IBOutlet weak var usersTableView: UITableView!
     
     fileprivate let dateFormatter = DateFormatter()
-    fileprivate weak var currentDateTextField: UITextField? = nil
     fileprivate var searchBar: UISearchBar!
     fileprivate var addButton: UIBarButtonItem!
     
@@ -32,7 +32,15 @@ class UsersViewController : UIViewController, UserView {
         
         searchBar = UISearchBar()
         searchBar.sizeToFit()
-        searchBar.delegate = self
+        searchBar
+            .reactive
+            .continuousTextValues
+            .observe(on: UIScheduler())
+            .observeValues { [weak self] text in
+                if let text = text {
+                    self?.userPresenter.filterUsers(by: text)
+                }
+        }
         navigationItem.titleView = searchBar
         
         addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
@@ -117,8 +125,6 @@ class UsersViewController : UIViewController, UserView {
         
         alert.addTextField(configurationHandler: { tf in
             tf.delegate = self
-            
-            self.currentDateTextField = tf
             tf.text = birthdate
             tf.placeholder = NSLocalizedString("Birthdate", comment: "")
         })
@@ -155,10 +161,7 @@ extension UsersViewController : UITableViewDataSource, UITableViewDelegate {
         let alert = createAlertController(title: NSLocalizedString("EditingUser", comment: ""),
                                           name: user.name,
                                           birthdate: birthdateString,
-                                          saveAction: { alert in
-                                            self.editUser(user, at: indexPath, from: alert)
-                                            
-        })
+                                          saveAction: { self.editUser(user, at: indexPath, from: $0)  })
         
         present(alert, animated: true, completion: nil)
     }
@@ -179,22 +182,17 @@ extension UsersViewController : UITableViewDataSource, UITableViewDelegate {
 }
 
 extension UsersViewController : UITextFieldDelegate {
-    
-    func datePickerValueChanged(sender: UIDatePicker) {
-        currentDateTextField?.text = dateFormatter.string(from: sender.date)
-    }
-    
-    func textFieldDidBeginEditing(_ textView: UITextView) {
+    func textFieldDidBeginEditing(_ textfiled: UITextField) {
         let datePickerView = UIDatePicker()
         datePickerView.datePickerMode = .date
-        textView.inputView = datePickerView
+        textfiled.inputView = datePickerView
         
-        datePickerView.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
-    }
-}
-
-extension UsersViewController : UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        userPresenter.filterUsers(by: searchText)
+        datePickerView
+            .reactive
+            .dates
+            .observe(on: UIScheduler())
+            .observeValues { [weak self] date in
+                textfiled.text = self?.dateFormatter.string(from: date)
+            }
     }
 }
