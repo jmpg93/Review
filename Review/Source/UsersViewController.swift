@@ -13,6 +13,8 @@ protocol UserView : class {
     func reload()
     func deleteUser(at: IndexPath)
     func insertUser(at: IndexPath)
+    
+    func displayAlert(title: String)
 }
 
 class UsersViewController : UIViewController, UserView {
@@ -21,6 +23,8 @@ class UsersViewController : UIViewController, UserView {
     
     fileprivate let dateFormatter = DateFormatter()
     fileprivate weak var currentDateTextField: UITextField? = nil
+    fileprivate var searchBar: UISearchBar!
+    fileprivate var addButton: UIBarButtonItem!
     
     class func initFromStoryboard() -> UsersViewController {
         return UIStoryboard(name: "Users", bundle: nil)
@@ -30,20 +34,26 @@ class UsersViewController : UIViewController, UserView {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        automaticallyAdjustsScrollViewInsets = false
+        
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        let searchBar = UISearchBar()
+        searchBar = UISearchBar()
         searchBar.sizeToFit()
-        
+        searchBar.delegate = self
         navigationItem.titleView = searchBar
+        
+        addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem = addButton
         
         usersTableView.delegate = self
         usersTableView.dataSource = self
         
+        
         userPresenter.updateUsers()
     }
     
-    @IBAction func addButtonTapped(_ sender: Any) {
+    func addButtonTapped(_ sender: Any) {
         let alert = createAlertController(title: "Adding new user", name: "", birthdate: "", saveAction: addUser)
         present(alert, animated: true, completion: nil)
     }
@@ -78,6 +88,12 @@ class UsersViewController : UIViewController, UserView {
     
     func insertUser(at indexPath: IndexPath) {
         usersTableView.insertRows(at: [indexPath], with: .right)
+    }
+    
+    func displayAlert(title: String) {
+        let alert = UIAlertController(title: title, message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     // Private functions
@@ -137,14 +153,7 @@ extension UsersViewController : UITableViewDataSource, UITableViewDelegate {
                                           name: user.name,
                                           birthdate: birthdateString,
                                           saveAction: { alert in
-                                            
-                                            guard let name = alert.textFields?[0].text,
-                                                let birthdateString = alert.textFields?[1].text,
-                                                let birthdate = self.dateFormatter.date(from: birthdateString) else {
-                                                    return
-                                            }
-                                            
-                                            let updatedUser = User(id: user.id, name: name, birthdate: birthdate)
+                                            self.editUser(user, at: indexPath, from: alert)
                                             
         })
         
@@ -166,14 +175,13 @@ extension UsersViewController : UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-
 extension UsersViewController : UITextFieldDelegate {
     
     func datePickerValueChanged(sender: UIDatePicker) {
         currentDateTextField?.text = dateFormatter.string(from: sender.date)
     }
     
-    private func textFieldDidBeginEditing(_ textView: UITextView) {
+    func textFieldDidBeginEditing(_ textView: UITextView) {
         let datePickerView = UIDatePicker()
         datePickerView.datePickerMode = .date
         textView.inputView = datePickerView
@@ -182,3 +190,9 @@ extension UsersViewController : UITextFieldDelegate {
     }
 }
 
+extension UsersViewController : UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+        userPresenter.filterUsers(by: searchText)
+    }
+}

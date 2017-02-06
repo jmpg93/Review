@@ -12,8 +12,14 @@ import ReactiveSwift
 class UsersPresenter {
     unowned let view: UserView
     let wireframe: RootWireframe
+    var filter: String = ""
     
-    private var users: [User]
+    private var users: [User] {
+        get { return filter.isEmpty ? _users : _users.filter({ $0.name.contains(filter) })  }
+        set { _users = newValue }
+    }
+    
+    private var _users: [User]
     
     let networkController: NetworkController
     
@@ -24,12 +30,17 @@ class UsersPresenter {
     init(view: UserView, wireframe: RootWireframe, networkController: NetworkController) {
         self.view = view
         self.wireframe = wireframe
-        self.users = []
+        self._users = []
         self.networkController = networkController
     }
     
     func user(at indexPath: IndexPath) -> User {
         return users[indexPath.row]
+    }
+    
+    func filterUsers(by string: String) {
+        filter = string
+        view.reload()
     }
     
     func addUser(_ user: AddingUser) {
@@ -43,18 +54,24 @@ class UsersPresenter {
                     self.view.insertUser(at: IndexPath(row: self.users.endIndex - 1, section: 0))
                 case let .failure(error):
                     print(error)
+                    self.view.displayAlert(title: "There was en error adding the user.")
                 }
         }
-    
     }
     
     func updateUser(_ user: User, at indexPath: IndexPath) {
         networkController
             .updateUser(user)
             .observe(on: UIScheduler())
-            .startWithCompleted {
-                self.users[indexPath.row] = user
-                self.view.reload()
+            .startWithResult { result in
+                switch result {
+                case let .success(user):
+                    self.users[indexPath.row] = user
+                    self.view.reload()
+                case let .failure(error):
+                    print(error)
+                    self.view.displayAlert(title: "There was en error updating the user.")
+                }
         }
     }
     
@@ -67,7 +84,7 @@ class UsersPresenter {
             .startWithCompleted {
                 self.users.remove(at: indexPath.row)
                 self.view.deleteUser(at: indexPath)
-            }
+        }
     }
     
     func updateUsers() {
@@ -81,6 +98,7 @@ class UsersPresenter {
                     self.view.reload()
                 case let .failure(error):
                     print(error)
+                    self.view.displayAlert(title: "There was en error retrieving the users.")
                 }
         }
     }

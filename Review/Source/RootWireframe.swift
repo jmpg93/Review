@@ -22,8 +22,6 @@ class RootWireframeiOS : RootWireframe {
         self.window = window
         self.dependencies = dependencies
         self.navigationController = UINavigationController()
-        
-        navigationController.isNavigationBarHidden = true
     }
     
     func presentMainView() {

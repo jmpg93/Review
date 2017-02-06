@@ -15,14 +15,18 @@ class DefaultNetworkController : NetworkController {
     
     private func request(endpoint: Endpoint) -> SignalProducer<[JSON], NetworkError>  {
         return SignalProducer { observer, disposable in
-            Alamofire.request(endpoint.url,
-                              method: endpoint.method,
-                              parameters: endpoint.params,
-                              encoding: endpoint.encoding,
-                              headers: endpoint.headers)
+            Alamofire
+                .request(endpoint.url,
+                         method: endpoint.method,
+                         parameters: endpoint.params,
+                         encoding: endpoint.encoding,
+                         headers: endpoint.headers)
                 .responseJSON(completionHandler: { response in
                     
                     if let json = response.result.value as? JSON {
+                        //TODO: Find more errors
+                        //TODO: Improve this mess
+                        
                         if let type =  json["$type"] as? String, type.range(of: "Error") != nil {
                             observer.send(error: .httpError)
                             return
@@ -65,8 +69,6 @@ class DefaultNetworkController : NetworkController {
     
     func removeUser(id: Int) -> SignalProducer<Void, NetworkError> {
         return request(endpoint: .removeUser(id: id))
-            .map({
-                _ in ()
-            })
+            .map({ _ in () })
     }
 }
