@@ -82,6 +82,11 @@ enum Endpoint {
         
         return headers
     }
+    
+    var responseSerialization: Int {
+        
+        return 0
+    }
 }
 
 extension Dictionary {

@@ -13,7 +13,7 @@ import Alamofire
 class DefaultNetworkController : NetworkController {
     let endpoint: String = "hello-world.innocv.com/api/"
     
-    private func request(endpoint: Endpoint) -> SignalProducer<[JSON], NetworkError>  {
+    private func request<T>(endpoint: Endpoint) -> SignalProducer<T, NetworkError>  {
         return SignalProducer { observer, disposable in
             Alamofire
                 .request(endpoint.url,
@@ -23,53 +23,51 @@ class DefaultNetworkController : NetworkController {
                          headers: endpoint.headers)
                 .responseJSON(completionHandler: { response in
                     
-                    if let json = response.result.value as? JSON {
-                        //TODO: Find more errors
-                        //TODO: Improve this mess
-                        //TODO: Create cutom generic serialization function
-                        
-                        if let type =  json["$type"] as? String, type.range(of: "Error") != nil {
-                            observer.send(error: .httpError)
-                            return
-                        } else {
-                            observer.send(value: [json])
+                    switch response.result {
+                    case .failure(let error):
+                        if response.response?.statusCode == 200 {
+                             observer.sendCompleted()
+                        }else {
+                            print(error)
+                             observer.send(error: .httpError)
                         }
-                        
-                    } else if let jsons = response.result.value as? [JSON] {
-                        observer.send(value: jsons)
+                    case .success(let json):
+                        if let value =  json as? T {
+                            observer.send(value: value)
+                            observer.sendCompleted()
+                        } else {
+                            observer.send(error: .httpError)
+                        }
                     }
+
                     
-                    observer.sendCompleted()
                 })
             
         }
     }
     
     func retrieveAllUsers() -> SignalProducer<[User], NetworkError> {
-        return request(endpoint: .retrieveAllUsers)
-            .map({ $0.map(User.init) })
+        let jsonsRequest: SignalProducer<[JSON], NetworkError> = self.request(endpoint: .retrieveAllUsers)
+        return jsonsRequest.map { jsons in jsons.map { User.init(from: $0) } }
     }
     
     func retrieveUser(id: Int) -> SignalProducer<User, NetworkError> {
-        return request(endpoint: .retrieveUser(id: id))
-            .filter({ !$0.isEmpty })
-            .map({ User(from: $0.first!) })
+        return toUserProducer(pro: request(endpoint: .retrieveUser(id: id)))
     }
     
     func addUser(_ user: AddingUser) -> SignalProducer<User, NetworkError> {
-        return request(endpoint: .addUser(user))
-            .filter({ !$0.isEmpty })
-            .map({ User(from: $0.first!) })
+        return toUserProducer(pro: request(endpoint: .addUser(user)))
     }
     
     func updateUser(_ user: User) -> SignalProducer<User, NetworkError> {
-        return request(endpoint: .updateUser(user))
-            .filter({ !$0.isEmpty })
-            .map({ User(from: $0.first!) })
+        return toUserProducer(pro: request(endpoint: .updateUser(user)))
     }
     
     func removeUser(id: Int) -> SignalProducer<Void, NetworkError> {
         return request(endpoint: .removeUser(id: id))
-            .map({ _ in () })
+    }
+    
+    private func toUserProducer(pro: SignalProducer<JSON, NetworkError>) -> SignalProducer<User, NetworkError> {
+        return pro.map { User(from: $0) }
     }
 }
