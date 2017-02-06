@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  Review
+
+  Created by Jose Maria Puerta on 6/2/17.
+  Copyright © 2017 Jose Maria Puerta. All rights reserved.
+*/
+
+"Name" = "Nombre";
+"BirthDate " = "Fecha de nacimiento";
+"Ok" = "OK";
+"AddingNewUser" = "Añadiendo nuevo usuario";
+"EditingUser" = "Editando usuario";
+"Save" = "Guardar";
+"Discard" = "Descartar";

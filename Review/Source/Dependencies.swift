@@ -16,7 +16,7 @@ class SharedDependencies {
     }()
     
     func usersPresenter(view: UserView, wireframe: RootWireframe) -> UsersPresenter {
-        return UsersPresenter(view: view, wireframe: wireframe, networkController: networkController)
+        return DefaultUsersPresenter(view: view, wireframe: wireframe, networkController: networkController)
     }
 }
 

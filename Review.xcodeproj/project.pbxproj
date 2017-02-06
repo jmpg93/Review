@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C0AD65E1E48DB76001C2E00 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C0AD6601E48DB76001C2E00 /* Localizable.strings */; };
+		6C0AD6661E48DF88001C2E00 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0AD6651E48DF88001C2E00 /* UserView.swift */; };
+		6C0AD6681E48DFBC001C2E00 /* UserPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0AD6671E48DFBC001C2E00 /* UserPresenter.swift */; };
 		6C71372E1E48886C00E0A4FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C71372D1E48886C00E0A4FA /* AppDelegate.swift */; };
 		6C7137301E48886C00E0A4FA /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C71372F1E48886C00E0A4FA /* UsersViewController.swift */; };
 		6C7137331E48886C00E0A4FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C7137311E48886C00E0A4FA /* Main.storyboard */; };
@@ -17,7 +20,7 @@
 		6C71374F1E488AEA00E0A4FA /* DefaultNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C71374E1E488AEA00E0A4FA /* DefaultNetworkController.swift */; };
 		6C7137511E488B3B00E0A4FA /* RootWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7137501E488B3B00E0A4FA /* RootWireframe.swift */; };
 		6C7137531E488B7700E0A4FA /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7137521E488B7700E0A4FA /* Dependencies.swift */; };
-		6C7137551E488C1800E0A4FA /* UsersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7137541E488C1800E0A4FA /* UsersPresenter.swift */; };
+		6C7137551E488C1800E0A4FA /* DefaultUsersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7137541E488C1800E0A4FA /* DefaultUsersPresenter.swift */; };
 		6C7137571E488D8D00E0A4FA /* Users.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C7137561E488D8D00E0A4FA /* Users.storyboard */; };
 		6C7137671E488FDE00E0A4FA /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7137631E488FDE00E0A4FA /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6C7137681E488FDE00E0A4FA /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7137641E488FDE00E0A4FA /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -52,6 +55,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6C0AD65C1E48DB4F001C2E00 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
+		6C0AD65D1E48DB4F001C2E00 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		6C0AD6621E48DB86001C2E00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6C0AD6631E48DB8A001C2E00 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6C0AD6641E48DC34001C2E00 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6C0AD6651E48DF88001C2E00 /* UserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserView.swift; path = Source/UserView.swift; sourceTree = "<group>"; };
+		6C0AD6671E48DFBC001C2E00 /* UserPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserPresenter.swift; path = Source/UserPresenter.swift; sourceTree = "<group>"; };
 		6C71372A1E48886C00E0A4FA /* Review.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Review.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C71372D1E48886C00E0A4FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Source/AppDelegate.swift; sourceTree = "<group>"; };
 		6C71372F1E48886C00E0A4FA /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersViewController.swift; path = Source/UsersViewController.swift; sourceTree = "<group>"; };
@@ -64,7 +74,7 @@
 		6C71374E1E488AEA00E0A4FA /* DefaultNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultNetworkController.swift; path = Source/DefaultNetworkController.swift; sourceTree = "<group>"; };
 		6C7137501E488B3B00E0A4FA /* RootWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RootWireframe.swift; path = Source/RootWireframe.swift; sourceTree = "<group>"; };
 		6C7137521E488B7700E0A4FA /* Dependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dependencies.swift; path = Source/Dependencies.swift; sourceTree = "<group>"; };
-		6C7137541E488C1800E0A4FA /* UsersPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UsersPresenter.swift; path = Source/UsersPresenter.swift; sourceTree = "<group>"; };
+		6C7137541E488C1800E0A4FA /* DefaultUsersPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultUsersPresenter.swift; path = Source/DefaultUsersPresenter.swift; sourceTree = "<group>"; };
 		6C7137561E488D8D00E0A4FA /* Users.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Users.storyboard; path = Source/Users.storyboard; sourceTree = "<group>"; };
 		6C7137631E488FDE00E0A4FA /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		6C7137641E488FDE00E0A4FA /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
@@ -92,6 +102,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C0AD65B1E48D9AC001C2E00 /* Endpoint */ = {
+			isa = PBXGroup;
+			children = (
+				6CEEE0A71E48941C009369B5 /* Endpoint.swift */,
+				6CEEE0A51E48908B009369B5 /* NetworkError.swift */,
+			);
+			name = Endpoint;
+			sourceTree = "<group>";
+		};
 		6C7137211E48886C00E0A4FA = {
 			isa = PBXGroup;
 			children = (
@@ -116,7 +135,7 @@
 				6C7137471E48893F00E0A4FA /* Models */,
 				6C7137441E48890300E0A4FA /* Presenters */,
 				6C7137411E4888E800E0A4FA /* Views */,
-				6C7137431E4888FA00E0A4FA /* Controllers */,
+				6C7137431E4888FA00E0A4FA /* Network */,
 				6C7137401E4888DC00E0A4FA /* Resources */,
 			);
 			path = Review;
@@ -125,8 +144,9 @@
 		6C7137401E4888DC00E0A4FA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6C7137311E48886C00E0A4FA /* Main.storyboard */,
+				6C0AD6601E48DB76001C2E00 /* Localizable.strings */,
 				6C7137341E48886C00E0A4FA /* Assets.xcassets */,
+				6C7137311E48886C00E0A4FA /* Main.storyboard */,
 				6C7137361E48886C00E0A4FA /* LaunchScreen.storyboard */,
 				6C7137391E48886C00E0A4FA /* Info.plist */,
 			);
@@ -136,6 +156,7 @@
 		6C7137411E4888E800E0A4FA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6C0AD6651E48DF88001C2E00 /* UserView.swift */,
 				6C71372F1E48886C00E0A4FA /* UsersViewController.swift */,
 				6C7137561E488D8D00E0A4FA /* Users.storyboard */,
 			);
@@ -153,19 +174,22 @@
 			name = Domain;
 			sourceTree = "<group>";
 		};
-		6C7137431E4888FA00E0A4FA /* Controllers */ = {
+		6C7137431E4888FA00E0A4FA /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				6C0AD65B1E48D9AC001C2E00 /* Endpoint */,
+				6C8235881E48AEC20037A55C /* Parametrizable.swift */,
 				6C7137451E48891C00E0A4FA /* NetworkController.swift */,
 				6C71374E1E488AEA00E0A4FA /* DefaultNetworkController.swift */,
 			);
-			name = Controllers;
+			name = Network;
 			sourceTree = "<group>";
 		};
 		6C7137441E48890300E0A4FA /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
-				6C7137541E488C1800E0A4FA /* UsersPresenter.swift */,
+				6C0AD6671E48DFBC001C2E00 /* UserPresenter.swift */,
+				6C7137541E488C1800E0A4FA /* DefaultUsersPresenter.swift */,
 			);
 			name = Presenters;
 			sourceTree = "<group>";
@@ -175,9 +199,6 @@
 			children = (
 				6C7137481E48895300E0A4FA /* User.swift */,
 				6C8235861E48AE2F0037A55C /* AddingUser.swift */,
-				6C8235881E48AEC20037A55C /* Parametrizable.swift */,
-				6CEEE0A51E48908B009369B5 /* NetworkError.swift */,
-				6CEEE0A71E48941C009369B5 /* Endpoint.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -238,6 +259,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 6C7137211E48886C00E0A4FA;
 			productRefGroup = 6C71372B1E48886C00E0A4FA /* Products */;
@@ -254,6 +276,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C0AD65E1E48DB76001C2E00 /* Localizable.strings in Resources */,
 				6C7137381E48886C00E0A4FA /* LaunchScreen.storyboard in Resources */,
 				6C7137571E488D8D00E0A4FA /* Users.storyboard in Resources */,
 				6C7137351E48886C00E0A4FA /* Assets.xcassets in Resources */,
@@ -271,9 +294,10 @@
 				6C7137491E48895300E0A4FA /* User.swift in Sources */,
 				6C7137301E48886C00E0A4FA /* UsersViewController.swift in Sources */,
 				6C71374F1E488AEA00E0A4FA /* DefaultNetworkController.swift in Sources */,
+				6C0AD6681E48DFBC001C2E00 /* UserPresenter.swift in Sources */,
 				6C7137531E488B7700E0A4FA /* Dependencies.swift in Sources */,
 				6CEEE0A81E48941C009369B5 /* Endpoint.swift in Sources */,
-				6C7137551E488C1800E0A4FA /* UsersPresenter.swift in Sources */,
+				6C7137551E488C1800E0A4FA /* DefaultUsersPresenter.swift in Sources */,
 				6C82358B1E48BFD70037A55C /* UserDateFormatter.swift in Sources */,
 				6C7137511E488B3B00E0A4FA /* RootWireframe.swift in Sources */,
 				6C8235871E48AE2F0037A55C /* AddingUser.swift in Sources */,
@@ -281,16 +305,28 @@
 				6C71372E1E48886C00E0A4FA /* AppDelegate.swift in Sources */,
 				6C8235891E48AEC20037A55C /* Parametrizable.swift in Sources */,
 				6C7137461E48891C00E0A4FA /* NetworkController.swift in Sources */,
+				6C0AD6661E48DF88001C2E00 /* UserView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		6C0AD6601E48DB76001C2E00 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C0AD6621E48DB86001C2E00 /* Base */,
+				6C0AD6631E48DB8A001C2E00 /* es */,
+				6C0AD6641E48DC34001C2E00 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		6C7137311E48886C00E0A4FA /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				6C7137321E48886C00E0A4FA /* Base */,
+				6C0AD65C1E48DB4F001C2E00 /* es */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -299,6 +335,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6C7137371E48886C00E0A4FA /* Base */,
+				6C0AD65D1E48DB4F001C2E00 /* es */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -310,6 +347,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -360,6 +398,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

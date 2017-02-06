@@ -9,14 +9,6 @@
 import UIKit
 import ReactiveCocoa
 
-protocol UserView : class {
-    func reload()
-    func deleteUser(at: IndexPath)
-    func insertUser(at: IndexPath)
-    
-    func displayAlert(title: String)
-}
-
 class UsersViewController : UIViewController, UserView {
     var userPresenter: UsersPresenter!
     @IBOutlet weak var usersTableView: UITableView!
@@ -36,7 +28,7 @@ class UsersViewController : UIViewController, UserView {
         
         automaticallyAdjustsScrollViewInsets = false
         
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         
         searchBar = UISearchBar()
         searchBar.sizeToFit()
@@ -50,11 +42,15 @@ class UsersViewController : UIViewController, UserView {
         usersTableView.dataSource = self
         
         
-        userPresenter.updateUsers()
+        userPresenter.reloadUsers()
     }
     
     func addButtonTapped(_ sender: Any) {
-        let alert = createAlertController(title: "Adding new user", name: "", birthdate: "", saveAction: addUser)
+        let alert = createAlertController(title: NSLocalizedString("AddingNewUser", comment: ""),
+                                          name: "",
+                                          birthdate: "",
+                                          saveAction: addUser)
+        
         present(alert, animated: true, completion: nil)
     }
     
@@ -62,7 +58,7 @@ class UsersViewController : UIViewController, UserView {
         guard let userData = self.userData(from: alert) else {
             return
         }
-
+        
         let user = AddingUser(name: userData.name, birthdate: userData.date)
         userPresenter.addUser(user)
     }
@@ -92,7 +88,10 @@ class UsersViewController : UIViewController, UserView {
     
     func displayAlert(title: String) {
         let alert = UIAlertController(title: title, message: "", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""),
+                                      style: .default,
+                                      handler: nil))
+        
         present(alert, animated: true, completion: nil)
     }
     
@@ -113,7 +112,7 @@ class UsersViewController : UIViewController, UserView {
         
         alert.addTextField(configurationHandler: { tf in
             tf.text = name
-            tf.placeholder = "Name"
+            tf.placeholder = NSLocalizedString("Name", comment: "")
         })
         
         alert.addTextField(configurationHandler: { tf in
@@ -121,14 +120,18 @@ class UsersViewController : UIViewController, UserView {
             
             self.currentDateTextField = tf
             tf.text = birthdate
-            tf.placeholder = "Birthdate"
+            tf.placeholder = NSLocalizedString("Birthdate", comment: "")
         })
         
-        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { _ in
-            saveAction(alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Save", comment: ""),
+                                      style: .default,
+                                      handler: { _ in
+                                        saveAction(alert)
         }))
         
-        alert.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Discard", comment: ""),
+                                      style: .destructive,
+                                      handler: nil))
         
         return alert
     }
@@ -149,7 +152,7 @@ extension UsersViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = userPresenter.user(at: indexPath)
         let birthdateString = dateFormatter.string(from: user.birthdate)
-        let alert = createAlertController(title: "Updating user",
+        let alert = createAlertController(title: NSLocalizedString("EditingUser", comment: ""),
                                           name: user.name,
                                           birthdate: birthdateString,
                                           saveAction: { alert in
@@ -192,7 +195,6 @@ extension UsersViewController : UITextFieldDelegate {
 
 extension UsersViewController : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
         userPresenter.filterUsers(by: searchText)
     }
 }

@@ -26,6 +26,7 @@ class DefaultNetworkController : NetworkController {
                     if let json = response.result.value as? JSON {
                         //TODO: Find more errors
                         //TODO: Improve this mess
+                        //TODO: Create cutom generic serialization function
                         
                         if let type =  json["$type"] as? String, type.range(of: "Error") != nil {
                             observer.send(error: .httpError)

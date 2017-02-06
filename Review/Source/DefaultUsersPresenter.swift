@@ -9,19 +9,17 @@
 import Foundation
 import ReactiveSwift
 
-class UsersPresenter {
-    unowned let view: UserView
-    let wireframe: RootWireframe
-    var filter: String = ""
+class DefaultUsersPresenter : UsersPresenter {
+    private unowned let view: UserView
+    private let wireframe: RootWireframe
+    private var filter: String = ""
+    private var _users: [User]
+    private let networkController: NetworkController
     
     private var users: [User] {
         get { return filter.isEmpty ? _users : _users.filter({ $0.name.contains(filter) })  }
         set { _users = newValue }
     }
-    
-    private var _users: [User]
-    
-    let networkController: NetworkController
     
     var usersCount: Int {
         return users.count
@@ -87,7 +85,7 @@ class UsersPresenter {
         }
     }
     
-    func updateUsers() {
+    func reloadUsers() {
         networkController
             .retrieveAllUsers()
             .observe(on: UIScheduler())
