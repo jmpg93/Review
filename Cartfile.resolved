@@ -1,0 +1,4 @@
+github "Alamofire/Alamofire" "fa3c6d09b603f417c7788adb51ca0cade75b3d67"
+github "antitypical/Result" "3.1.0"
+github "ReactiveCocoa/ReactiveSwift" "1.0.0"
+github "ReactiveCocoa/ReactiveCocoa" "14d36c7c1bfd7e95af5862ac0328d679774d0b8e"

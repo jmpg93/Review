@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Users View Controller-->
+        <scene sceneID="Uls-yN-y9N">
+            <objects>
+                <viewController storyboardIdentifier="UsersViewController" id="rWX-tM-OUw" customClass="UsersViewController" customModule="Review" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="44i-aO-gr5"/>
+                        <viewControllerLayoutGuide type="bottom" id="LW4-LV-dFW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QL8-yg-B28">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="54" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Npk-4A-soW">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kuh-9u-xyx">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="fqO-18-TJa"/>
+                                </constraints>
+                                <color key="barTintColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                <items>
+                                    <navigationItem title="Users" id="Hhs-r6-Ceb">
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="jb7-EH-4KQ">
+                                            <connections>
+                                                <action selector="addButtonTapped:" destination="rWX-tM-OUw" id="UJe-lj-kzX"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Kuh-9u-xyx" firstAttribute="top" secondItem="44i-aO-gr5" secondAttribute="bottom" id="5QD-uB-KXt"/>
+                            <constraint firstItem="Kuh-9u-xyx" firstAttribute="leading" secondItem="QL8-yg-B28" secondAttribute="leading" id="GNg-EQ-bAF"/>
+                            <constraint firstAttribute="trailing" secondItem="Npk-4A-soW" secondAttribute="trailing" id="IFp-rO-k88"/>
+                            <constraint firstItem="LW4-LV-dFW" firstAttribute="top" secondItem="Npk-4A-soW" secondAttribute="bottom" id="SaS-Ax-QBT"/>
+                            <constraint firstItem="Npk-4A-soW" firstAttribute="leading" secondItem="QL8-yg-B28" secondAttribute="leading" id="aar-rl-W8C"/>
+                            <constraint firstItem="Npk-4A-soW" firstAttribute="top" secondItem="Kuh-9u-xyx" secondAttribute="bottom" id="mBd-5T-Vjv"/>
+                            <constraint firstAttribute="trailing" secondItem="Kuh-9u-xyx" secondAttribute="trailing" id="zlI-QR-5D5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="navigationBar" destination="Kuh-9u-xyx" id="7Dk-bL-Keu"/>
+                        <outlet property="usersTableView" destination="Npk-4A-soW" id="hWm-bJ-T4I"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fcU-yl-slh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="389.60000000000002" y="-139.880059970015"/>
+        </scene>
+    </scenes>
+</document>
